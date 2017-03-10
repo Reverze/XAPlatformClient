@@ -11,7 +11,7 @@ You can install this library using composer:
 ```
 composer require rev/xa-platform-client
 ```
-This will install package at last version. 
+This will install package at newest version. 
 
 ##Usage
 Before you will use it, you must have registered application at XAPlatform.
