@@ -1,7 +1,7 @@
 {
     "name": "rev/xa-platform-client",
     "type": "library",
-    "description": "Client writtern in PHP for XAPlatform",
+    "description": "Client written in PHP for XAPlatform",
     "keywords": [],
     "authors": [
         {
@@ -11,6 +11,7 @@
     ],
     "license": "MIT",
     "require": {
+        "php": ">=7.0",
         "doctrine/cache": "^1.6",
         "ci/restclientbundle": "^2.0.2",
         "symfony/http-foundation": "^3.2.4",
