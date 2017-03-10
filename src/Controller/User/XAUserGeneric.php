@@ -114,7 +114,7 @@ class XAUserGeneric
                 $scope->store();
             }
 
-            return (bool) ! $scopeResult['result'];
+            return (bool) !$scopeResult['result'];
         }
 
         return self::UNEXPECTED_ERROR;
