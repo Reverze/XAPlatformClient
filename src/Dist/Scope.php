@@ -49,7 +49,7 @@ class Scope
      */
     private $waitForStore = false;
 
-    public function __construct($scopeName, int $cacheLifetime = 0)
+    public function __construct($scopeName = null, int $cacheLifetime = 0)
     {
         /**
          * Scope's name cannot be empty
