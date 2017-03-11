@@ -741,6 +741,43 @@ class XAUser
         throw UserException::updateActionUserOffline($this->userID, 'finish_emailaddress_change');
     }
 
+    /**
+     * Verifies user's password
+     * @param string $plainPassword
+     * @return bool|int
+     * @throws UserException
+     */
+    public function verifyUserPassword(string $plainPassword)
+    {
+        if ($this->isOnline()){
+            if (!strlen($plainPassword)){
+                return self::EMPTY_USERPASSWORD;
+            }
+
+            $scope = new Scope();
+            $scope->on('@users.verifyUserPassword', [
+                '@userID' => $this->userID,
+                '@plainPassword' => $plainPassword
+            ]);
+
+            if ($scope->isOk()){
+                $scopeResult = $scope->getResult();
+                if (array_key_exists('result', $scopeResult)){
+                    if ($scopeResult['result'] === true){
+                        return true;
+                    }
+                    else if ($scopeResult['result'] === false){
+                        return false;
+                    }
+                }
+            }
+
+            return self::UNEXPECTED_ERROR;
+        }
+
+        throw UserException::updateActionUserOffline($this->userID, 'verify_userpassword');
+    }
+
 }
 
 ?>
