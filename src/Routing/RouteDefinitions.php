@@ -124,6 +124,11 @@ class RouteDefinitions
             'method' => 'post',
             'path' => '/users/finish-email-change',
             'auth' => false
+        ],
+        'users.verifyUserPassword' => [
+            'method' => 'get',
+            'path' => '/users/verify-user-password',
+            'auth' => true
         ]
     ];
 
