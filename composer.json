@@ -15,7 +15,7 @@
         "php": ">=7.0",
         "doctrine/cache": "^1.6",
         "ci/restclientbundle": "^2.0.2",
-        "symfony/http-foundation": "^3.2.4",
+        "symfony/http-foundation": "*",
         "webmozart/json": "^1.2.2",
         "josantonius/ip": "^1.1.0"
     },
