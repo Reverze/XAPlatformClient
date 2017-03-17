@@ -24,7 +24,6 @@
             "XA\\PlatformClient\\": "src/"
         }
     },
-    "minimum-stability": "dev",
     "extra":{
         "dev-master": "dev"
     }
