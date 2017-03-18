@@ -150,7 +150,7 @@ class GlobalRequest
      */
     public static function dropSessionIdCookie()
     {
-        setcookie(static::$sessionIdCookieName, '', 99600, '/');
+        setcookie(static::$sessionIdCookieName, '', 99600, '/', $_SERVER['HTTP_HOST'] ?? "");
     }
 
     /**
@@ -158,7 +158,7 @@ class GlobalRequest
      */
     public static function dropSessionHandleKeyCookie()
     {
-        setcookie(static::$sessionHandleKeyCookieName, '', 99600, '/');
+        setcookie(static::$sessionHandleKeyCookieName, '', 99600, '/', $_SERVER['HTTP_HOST'] ?? "");
     }
 
 }
