@@ -139,6 +139,21 @@ class RouteDefinitions
             'method' => 'delete',
             'path' => '/users/drop-user-avatar',
             'auth' => true
+        ],
+        'users.resendConfirmCode' => [
+            'method' => 'post',
+            'path' => '/users/resend-confirm-code',
+            'auth' => true
+        ],
+        'users.remindUsername' => [
+            'method' => 'get',
+            'path' => '/users/remind-username',
+            'auth' => false
+        ],
+        'users.remindPassword' => [
+            'method' => 'get',
+            'path' => '/users/remind-password',
+            'auth' => false
         ]
     ];
 
