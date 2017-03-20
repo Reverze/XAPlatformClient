@@ -72,6 +72,10 @@ class XAUser
 
     const PREPARE_CONFIRMATION_FAILED = 130;
 
+    /**
+     * Given avatar url was empty
+     */
+    const EMPTY_AVATAR_URL = 131;
 
 
     const MAIL_SEND_FAILED = 131;
@@ -776,6 +780,25 @@ class XAUser
         }
 
         throw UserException::updateActionUserOffline($this->userID, 'verify_userpassword');
+    }
+
+    /**
+     * Changes user avatar url
+     * @param string $newAvatarUrl
+     * @return bool|int
+     * @throws UserException
+     */
+    public function changeAvatar(string $newAvatarUrl)
+    {
+        if ($this->isOnline()){
+            if (!strlen($newAvatarUrl)){
+                return self::EMPTY_AVATAR_URL;
+            }
+
+            return $this->userGenericInstance->changeUserAvatarUrl($this->userID, $newAvatarUrl);
+        }
+
+        throw UserException::updateActionUserOffline($this->userID, 'change_avatar_url');
     }
 
 }
