@@ -849,6 +849,37 @@ class XAUserGeneric
         return self::UNEXPECTED_ERROR;
     }
 
+    /**
+     * Drops user avatar
+     * @param int $userID
+     * @return bool|int
+     */
+    public function dropUserAvatar(int $userID)
+    {
+        if ($userID <= 0){
+            return self::INVALID_USER_ID;
+        }
+
+        $scope = new Scope();
+        $scope->on('@users.dropUserAvatar', [
+            '@userID' => $userID
+        ]);
+
+        if ($scope->isOk()){
+            $scopeResult = $scope->getResult();
+
+            if (array_key_exists('result', $scopeResult)){
+                if ($scopeResult['result'] === 'unexpected-error-occurred'){
+                    return self::UNEXPECTED_ERROR;
+                }
+
+                return (bool) $scopeResult['result'];
+            }
+
+        }
+
+        return self::UNEXPECTED_ERROR;
+    }
 }
 
 ?>
