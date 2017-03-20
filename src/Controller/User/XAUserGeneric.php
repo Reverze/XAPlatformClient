@@ -3,6 +3,7 @@
 namespace XA\PlatformClient\Controller\User;
 
 use XA\PlatformClient\Dist\Scope;
+use XA\PlatformClient\Enum\WebService;
 
 class XAUserGeneric
 {
@@ -80,6 +81,22 @@ class XAUserGeneric
      * Given authorize code was invalid
      */
     const INVALID_AUTHORIZE_CODE = 114;
+
+    /**
+     * Given avatar url was empty
+     */
+    const EMPTY_AVATAR_URL = 115;
+
+    /**
+     * Invalid avatar image mime type
+     */
+    const AVATAR_INVALID_MIME_TYPE = 116;
+
+    /**
+     * Max size of avatar image exceeded
+     */
+    const AVATAR_MAX_SIZE_EXCEEDED = 117;
+
     /**
      * Unexpected error occurred (scope is not ok)
      */
@@ -779,8 +796,58 @@ class XAUserGeneric
         return self::UNEXPECTED_ERROR;
     }
 
+    /**
+     * Chages user avatar. Returns True on success
+     * @param int $userID
+     * @param string $newAvatarUrl
+     * @return bool|int
+     */
+    public function changeUserAvatarUrl(int $userID, string $newAvatarUrl)
+    {
+        if ($userID <= 0){
+            return self::INVALID_USER_ID;
+        }
 
+        if (!strlen($newAvatarUrl)){
+            return self::EMPTY_AVATAR_URL;
+        }
 
+        $scope = new Scope();
+        $scope->on('@users.updateUserAvatarUri', [
+            '@userID' => $userID,
+            '@avatar' => $newAvatarUrl
+        ]);
+
+        if ($scope->isOk()){
+            $scopeResult = $scope->getResult();
+
+            if (array_key_exists('result', $scopeResult)){
+                if ($scopeResult['result'] === 'unexpected-error-occurred'){
+                    return self::UNEXPECTED_ERROR;
+                }
+
+                if ($scopeResult['result'] === 'account-not-confirmed'){
+                    return self::ACCOUNT_NOT_CONFIRMED_DENIED;
+                }
+
+                if ($scopeResult['result'] === 'external-webservice-not-available'){
+                    return WebService::NOT_AVAILABLE;
+                }
+
+                if ($scopeResult['result'] === 'external-resource-not-found'){
+                    return WebService::RESOURCE_NOT_FOUND;
+                }
+
+                if ($scopeResult['result'] === 'external-resource-not-available'){
+                    return WebService::RESOURCE_NOT_AVAILABLE;
+                }
+
+                return (bool) $scopeResult['result']; //true
+            }
+        }
+
+        return self::UNEXPECTED_ERROR;
+    }
 
 }
 
