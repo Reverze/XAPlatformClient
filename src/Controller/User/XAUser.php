@@ -801,6 +801,20 @@ class XAUser
         throw UserException::updateActionUserOffline($this->userID, 'change_avatar_url');
     }
 
+    /**
+     * Drops user avatar
+     * @return bool|int
+     * @throws UserException
+     */
+    public function dropAvatar()
+    {
+        if ($this->isOnline()){
+            return $this->userGenericInstance->dropUserAvatar($this->userID);
+        }
+
+        throw UserException::updateActionUserOffline($this->userID, 'drop_user_avatar');
+    }
+
 }
 
 ?>
