@@ -134,6 +134,11 @@ class RouteDefinitions
             'method' => 'post',
             'path' => '/users/update-user-avatar',
             'auth' => true
+        ],
+        'users.dropUserAvatar' => [
+            'method' => 'delete',
+            'path' => '/users/drop-user-avatar',
+            'auth' => true
         ]
     ];
 
