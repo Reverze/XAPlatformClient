@@ -129,6 +129,11 @@ class RouteDefinitions
             'method' => 'get',
             'path' => '/users/verify-user-password',
             'auth' => true
+        ],
+        'users.updateUserAvatarUri' => [
+            'method' => 'post',
+            'path' => '/users/update-user-avatar',
+            'auth' => true
         ]
     ];
 
