@@ -72,6 +72,10 @@ class XAUser
 
     const PREPARE_CONFIRMATION_FAILED = 130;
 
+    /**
+     * Given avatar url was empty
+     */
+    const EMPTY_AVATAR_URL = 131;
 
 
     const MAIL_SEND_FAILED = 131;
@@ -777,6 +781,86 @@ class XAUser
 
         throw UserException::updateActionUserOffline($this->userID, 'verify_userpassword');
     }
+
+    /**
+     * Changes user avatar url
+     * @param string $newAvatarUrl
+     * @return bool|int
+     * @throws UserException
+     */
+    public function changeAvatar(string $newAvatarUrl)
+    {
+        if ($this->isOnline()){
+            if (!strlen($newAvatarUrl)){
+                return self::EMPTY_AVATAR_URL;
+            }
+
+            return $this->userGenericInstance->changeUserAvatarUrl($this->userID, $newAvatarUrl);
+        }
+
+        throw UserException::updateActionUserOffline($this->userID, 'change_avatar_url');
+    }
+
+    /**
+     * Drops user avatar
+     * @return bool|int
+     * @throws UserException
+     */
+    public function dropAvatar()
+    {
+        if ($this->isOnline()){
+            return $this->userGenericInstance->dropUserAvatar($this->userID);
+        }
+
+        throw UserException::updateActionUserOffline($this->userID, 'drop_user_avatar');
+    }
+
+    /**
+     * Resends confirm code
+     * @param null $newEmailAddress
+     * @return bool|int
+     * @throws UserException
+     */
+    public function resendConfirmCode($newEmailAddress = null)
+    {
+        $emailAddress = (!empty($newEmailAddress) ? $newEmailAddress : $this->userEmailAddress);
+
+        if ($this->isOnline()){
+            return $this->userGenericInstance->resendConfirmCode($this->userID, $emailAddress);
+        }
+
+        throw UserException::updateActionUserOffline($this->userID, 'resend_confirm_code');
+    }
+
+    /**
+     * Reminds username
+     * @param string $emailAddress
+     * @return bool|int
+     */
+    public function remindUsername(string $emailAddress)
+    {
+        return $this->userGenericInstance->remindUsername($emailAddress);
+    }
+
+    /**
+     * Reminds user's password
+     * @param string $emailAddress
+     * @return bool|int
+     */
+    public function remindPassword(string $emailAddress)
+    {
+        return $this->userGenericInstance->remindPassword($emailAddress);
+    }
+
+    /**
+     * Gets XAUser generic instance
+     * @return XAUserGeneric
+     */
+    public function getGeneric() : XAUserGeneric
+    {
+        return $this->userGenericInstance;
+    }
+
 
 }
 

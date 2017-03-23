@@ -27,7 +27,8 @@ class RequestDefinitions
         "sessionID" => "sid",
         "sessionHandleKey" => "shk",
         "confirmCode" => "code",
-        "authCode" => "authorize-code"
+        "authCode" => "authorize-code",
+        "avatar" => "avatar-url"
     ];
 
     /**
