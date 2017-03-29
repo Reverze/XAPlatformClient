@@ -567,47 +567,6 @@ class XAUser
         $scope->drop();
     }
 
-    /**
-     * Updates user's name
-     * @param string $newUsername
-     * @return bool|int
-     * @throws UserException
-     */
-    public function updateUserName(string $newUsername)
-    {
-        if ($this->isOnline()){
-            if ($this->userName === $newUsername){
-                return self::THE_SAME_NAME;
-            }
-
-            $this->destructScope();
-
-            return $this->userGenericInstance->updateUserName($this->userID, $newUsername);
-        }
-        else{
-            throw UserException::updateActionUserOffline($this->userID, 'username');
-        }
-    }
-
-    /**
-     * Updates email address assigned to user's account
-     * @param string $newEmailAddress
-     * @return int
-     * @throws UserException
-     */
-    public function updateEmailAddress(string $newEmailAddress)
-    {
-        if ($this->isOnline()){
-            if ($this->userEmailAddress === $newEmailAddress){
-                return self::THE_SAME_EMAIL;
-            }
-            return $this->userGenericInstance->updateUserEmailAddress($this->userID, $newEmailAddress);
-        }
-        else{
-            throw UserException::updateActionUserOffline($this->userID, 'email');
-        }
-    }
-
 
     /**
      * Confirms account
