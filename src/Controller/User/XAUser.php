@@ -830,6 +830,15 @@ class XAUser
         return $this->userGenericInstance;
     }
 
+    /**
+     * Gets XAUser environment instance
+     * @return XAUserEnvironment
+     */
+    public function getEnvironment() : XAUserEnvironment
+    {
+        return $this->environmentInstance;
+    }
+
 
 }
 
