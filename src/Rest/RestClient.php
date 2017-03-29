@@ -96,6 +96,8 @@ class RestClient
             $protocol = 'https';
         }
 
+        $credentials['providerHost'] = str_replace("https://", "", $credentials['providerHost']);
+
         /**
          * Compiles provider uri
          */
