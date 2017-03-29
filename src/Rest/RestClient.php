@@ -90,10 +90,16 @@ class RestClient
 
         $this->setHeader('ax-platform-app', $credentials['appKey']);
 
+        $protocol = 'http';
+
+        if (strpos($credentials['providerHost'], 'https') !== false){
+            $protocol = 'https';
+        }
+
         /**
          * Compiles provider uri
          */
-        $this->uri = sprintf("http://%s:%d", $credentials['providerHost'], $credentials['providerPort']);
+        $this->uri = sprintf("%s://%s:%d", $protocol, $credentials['providerHost'], $credentials['providerPort']);
     }
 
     /**
