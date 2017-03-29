@@ -622,6 +622,8 @@ class XAUser
                 return UserException::accountAlreadyConfirmed($this->userID);
             }
 
+            $this->destructScope();
+
             return $this->userGenericInstance->confirmUserAccount($this->userID, $confirmCode);
         }
         else{
@@ -656,6 +658,8 @@ class XAUser
     public function finishPasswordChange(string $authorizeCode)
     {
         if ($this->isOnline()){
+            $this->destructScope();
+
             return $this->userGenericInstance->finishPasswordChange($this->userID, $authorizeCode);
         }
 
@@ -691,6 +695,8 @@ class XAUser
     public function finishUsernameChange(string $authorizeCode)
     {
         if ($this->isOnline()){
+            $this->destructScope();
+
             $this->destructScope();
 
             return $this->userGenericInstance->finishUserNameChangeProcess($this->userID, $authorizeCode);
@@ -739,6 +745,8 @@ class XAUser
     public function finishEmailAddressChange(string $authorizeCode)
     {
         if ($this->isOnline()){
+            $this->destructScope();
+
             return $this->userGenericInstance->finishChangeEmailAddress($this->userID, $authorizeCode);
         }
 
@@ -795,6 +803,7 @@ class XAUser
                 return self::EMPTY_AVATAR_URL;
             }
 
+            $this->destructScope();
             return $this->userGenericInstance->changeUserAvatarUrl($this->userID, $newAvatarUrl);
         }
 
@@ -809,6 +818,7 @@ class XAUser
     public function dropAvatar()
     {
         if ($this->isOnline()){
+            $this->destructScope();
             return $this->userGenericInstance->dropUserAvatar($this->userID);
         }
 
