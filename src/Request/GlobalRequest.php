@@ -134,6 +134,7 @@ class GlobalRequest
     public static function setSessionIdCookie(string $cookieValue)
     {
         setcookie(static::$sessionIdCookieName, $cookieValue,  time() + static::$cookieLifetime, '/',  $_SERVER['HTTP_HOST'] ?? "");
+        $_COOKIE[static::$sessionIdCookieName] = $cookieValue;
     }
 
     /**
@@ -143,6 +144,7 @@ class GlobalRequest
     public static function setSessionHandleKeyCookie(string $cookieValue)
     {
         setcookie(static::$sessionHandleKeyCookieName, $cookieValue, time() + static::$cookieLifetime, '/', $_SERVER['HTTP_HOST'] ?? "");
+        $_COOKIE[static::$sessionHandleKeyCookieName] = $cookieValue;
     }
 
     /**
@@ -151,6 +153,9 @@ class GlobalRequest
     public static function dropSessionIdCookie()
     {
         setcookie(static::$sessionIdCookieName, '', 99600, '/', $_SERVER['HTTP_HOST'] ?? "");
+        if (isset($_COOKIE[static::$sessionIdCookieName])){
+            unset($_COOKIE[static::$sessionIdCookieName]);
+        }
     }
 
     /**
@@ -159,6 +164,9 @@ class GlobalRequest
     public static function dropSessionHandleKeyCookie()
     {
         setcookie(static::$sessionHandleKeyCookieName, '', 99600, '/', $_SERVER['HTTP_HOST'] ?? "");
+        if (isset($_COOKIE[static::$sessionHandleKeyCookieName])){
+            unset($_COOKIE[static::$sessionHandleKeyCookieName]);
+        }
     }
 
 }
